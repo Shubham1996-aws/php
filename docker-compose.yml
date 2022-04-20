@@ -1,0 +1,31 @@
+version: '3'
+services:
+ php:
+  container_name: php-container
+  build:
+   context: .
+   dockerfile: Dockerfile
+  volumes:
+   - ./:/var/www/html/
+  ports:
+   - 80:80
+
+ db:
+  container_name: db-container
+  image: mysql:8.0
+  environment:
+   MYSQL_ROOT_PASSWORD: root
+   MYSQL_DATABASE: mysqldb
+   MYSQL_USER: admin
+   MYSQL_PASSWORD: admin
+  ports:
+   - 3306:3306
+
+ phpmyadmin:
+  container_name: phpmyadmin-container
+  image: phpmyadmin
+  ports:
+   - 8080:80
+  depends_on:
+   - db
+
